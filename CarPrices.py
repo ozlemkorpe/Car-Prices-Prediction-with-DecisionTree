@@ -3,23 +3,20 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier # Import Decision Tree Classifier
 from sklearn.model_selection import train_test_split # Import train_test_split function
 from sklearn import metrics #Import scikit-learn metrics module for accuracy calculation
-import copy
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-#Preprocessing
 
+#PREPROCESSING
 #Read dataset
 #model,year,engineSize,transmission,mileage,fuelType,tax,mpg,engineSize
 data_train = pd.read_csv("train.csv")
 data_test = pd.read_csv("test.csv")
-
 #print(data_train.head())
 #print(data_train.info())
 
 #check the column-wise distribution of null values:
 #print(data_train.isnull().sum())
-
 #print(data_train['model'].value_counts()) #count of each model
 #print(data_train['model'].value_counts().count()) #distinct models
 
@@ -60,5 +57,27 @@ data_test_cpy['model'] = data_test_cpy['model'].cat.codes
 data_test_cpy['transmission'] = data_test_cpy['transmission'].cat.codes
 data_test_cpy['fuelType'] = data_test_cpy['fuelType'].cat.codes
 
-print(data_train_cpy.head())
-print(data_train_cpy.info())
+#print(data_train_cpy.head())
+#print(data_train_cpy.info())
+
+#split dataset in features and target variable
+feature_cols = ['model', 'year', 'engineSize', 'transmission','mileage','fuelType','mpg' ,'engineSize']
+X = data_train_cpy[feature_cols] # Features
+y = data_train_cpy.price # Target variable
+
+# Split dataset into training set and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+# 70% training and 30% test
+
+# Create Decision Tree classifer object
+clf = DecisionTreeClassifier(criterion="entropy", max_depth=48)
+
+# Train Decision Tree Classifer
+clf = clf.fit(X_train,y_train)
+
+#Predict the response for test dataset
+y_pred = clf.predict(X_test)
+
+# Model Accuracy, how often is the classifier correct?
+print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
