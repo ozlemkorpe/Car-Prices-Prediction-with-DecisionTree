@@ -27,13 +27,13 @@ data_test = pd.read_csv("test.csv")
 #print(data_train['model'].value_counts().count()) #distinct models
 
 #PLOTTING OF MODELS
-model_count = data_train['model'].value_counts()
+model_count = data_train['transmission'].value_counts()
 sns.set(style="darkgrid")
 sns.barplot(model_count.index, model_count.values, alpha=0.9)
-plt.title('Frequency Distribution of Models')
+plt.title('Frequency Distribution of transmission')
 plt.ylabel('Number of Occurrences', fontsize=12)
-plt.xlabel('Model', fontsize=12)
-#plt.show()
+plt.xlabel('transmission', fontsize=12)
+plt.show()
 
 #PIE CHART OF MODELS
 labels = data_train['model'].astype('category').cat.categories.tolist()
