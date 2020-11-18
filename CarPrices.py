@@ -61,4 +61,4 @@ data_test_cpy['transmission'] = data_test_cpy['transmission'].cat.codes
 data_test_cpy['fuelType'] = data_test_cpy['fuelType'].cat.codes
 
 print(data_train_cpy.head())
-
+print(data_train_cpy.info())
