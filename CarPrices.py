@@ -5,7 +5,8 @@ from sklearn.model_selection import train_test_split # Import train_test_split f
 from sklearn import metrics #Import scikit-learn metrics module for accuracy calculation
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+from sklearn import tree
+from sklearn.metrics import r2_score
 
 #PREPROCESSING
 #Read dataset
@@ -69,7 +70,7 @@ Xt = data_test_cpy[feature_cols] # Features
 yt = data_test_cpy.price # Target variable
 
 # Create Decision Tree classifer object
-clf = DecisionTreeClassifier(criterion="entropy", max_depth=48)
+clf = DecisionTreeClassifier(criterion="entropy", max_depth=100)
 
 # Train Decision Tree Classifer
 clf = clf.fit(X,y)
@@ -77,8 +78,10 @@ clf = clf.fit(X,y)
 #Predict the response for test dataset
 y_pred = clf.predict(Xt)
 
-# Model Accuracy, how often is the classifier correct?
+# Model Accuracy: Is not suitable for continous values
 print("Accuracy:",metrics.accuracy_score(yt, y_pred))
+# Model Score: Is suitable for continous values, how close the predicted values to actual values
+print("Score:", r2_score(yt, y_pred))
 
 #Other option for splitting one dataset into two to test accuracy
 """
@@ -98,3 +101,8 @@ y_pred = clf.predict(X_test)
 # Model Accuracy, how often is the classifier correct?
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 """
+
+#Print tree on console
+text_representation = tree.export_text(clf)
+#print(text_representation)
+
