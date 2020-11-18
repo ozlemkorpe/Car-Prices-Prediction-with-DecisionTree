@@ -65,6 +65,23 @@ feature_cols = ['model', 'year', 'engineSize', 'transmission','mileage','fuelTyp
 X = data_train_cpy[feature_cols] # Features
 y = data_train_cpy.price # Target variable
 
+Xt = data_test_cpy[feature_cols] # Features
+yt = data_test_cpy.price # Target variable
+
+# Create Decision Tree classifer object
+clf = DecisionTreeClassifier(criterion="entropy", max_depth=48)
+
+# Train Decision Tree Classifer
+clf = clf.fit(X,y)
+
+#Predict the response for test dataset
+y_pred = clf.predict(Xt)
+
+# Model Accuracy, how often is the classifier correct?
+print("Accuracy:",metrics.accuracy_score(yt, y_pred))
+
+#Other option for splitting one dataset into two to test accuracy
+"""
 # Split dataset into training set and test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
 # 70% training and 30% test
@@ -80,4 +97,4 @@ y_pred = clf.predict(X_test)
 
 # Model Accuracy, how often is the classifier correct?
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-
+"""
