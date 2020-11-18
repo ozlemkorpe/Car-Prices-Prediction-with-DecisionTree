@@ -7,6 +7,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn import tree
 from sklearn.metrics import r2_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import datasets
+from IPython.display import Image
+from sklearn import tree
+import pydotplus
 
 #PREPROCESSING
 #Read dataset
@@ -106,3 +111,13 @@ print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 text_representation = tree.export_text(clf)
 #print(text_representation)
 
+"""
+# Create DOT data
+dot_data = tree.export_graphviz(clf, out_file=None,feature_names=data_test_cpy. ,class_names=yt)
+
+# Draw graph
+graph = pydotplus.graph_from_dot_data(dot_data)
+
+# Show graph
+Image(graph.create_png())
+"""
